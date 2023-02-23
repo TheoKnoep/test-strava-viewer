@@ -1,7 +1,44 @@
+let to_display = [
+    {
+        path: '../aigoual-nat.tcx', 
+        modifier: 3600*1000*2, 
+        display: false
+    }, 
+    {
+        path: '../sens-to.tcx', 
+        modifier: 0, 
+        display: false
+    }, 
+    {
+        path: '../sens-arielle.tcx', 
+        modifier: 3600*1000*2, 
+        display: false
+    }, 
+    {
+        path: '../vosges-to.tcx', 
+        modifier: 0, 
+        display: false
+    }, 
+    {
+        path: '../vosges-tibo.tcx', 
+        modifier: 3600000*2, 
+        display: false
+    }
+]; 
+
+
+
+
 // config
-const listOfColors = [
+let listOfColors = [
     "red", "green", "blue", "teal", "crimson", "darkblue", "darkmagenta", "olive", "rebeccapurple", "lightslategray"
 ]; 
+
+// shuffle : 
+listOfColors = listOfColors.sort((a,b) => 0.5 - Math.random()); 
+
+console.log(listOfColors); 
+
 
 // Initialiser l'affichage de la carte : 
 let mapOptions = {
@@ -26,27 +63,18 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
  * PARSE XML CONTENT : 
  */
 
-let to_display = [
-    {
-        path: '../CC_02_23_Paris_Melun_.tcx', 
-        modifier: 0
-    }, 
-    {
-        path: '../premiere.tcx', 
-        modifier: 3600*1000
+
+to_display.forEach((item, index) => {
+    if (item.display) {
+        displayPointsOnMap(item.path, { color: listOfColors[index], time_modifier: item.modifier}); 
     }
-]; 
+})
 
 
-let perso = '../CC_02_23_Paris_Melun_.tcx'; 
-
-
-
-
-displayPointsOnMap(perso)
-    .then(() => { 
-        displayPointsOnMap('../CC02.tcx', { time_modifier: 1000*60*60})
-    });  
+// displayPointsOnMap('../CC_02_23_Paris_Melun_.tcx')
+//     .then(() => { 
+//         // displayPointsOnMap('../CC02.tcx', { time_modifier: 1000*60*60, color: listOfColors[1]})
+//     });  
 
 
 
@@ -59,9 +87,8 @@ async function displayPointsOnMap(pathfile, options = null) {
     if (options && options.time_modifier) { time_modifier = options.time_modifier }
 
     //select Color: 
-    let rand = Math.floor(Math.random()*listOfColors.length); 
-    color = listOfColors[rand]; 
-    listOfColors.splice(rand,1); 
+    let color = listOfColors[0]; 
+    if (options && options.color) { color = options.color }
 
     console.log(color); 
 
@@ -71,6 +98,8 @@ async function displayPointsOnMap(pathfile, options = null) {
     } else if(input === 'tcx') {
         data = await parseTCX(pathfile); 
     }
+
+    map.panTo([data[0].lat, data[0].lon]); 
 
     // Paint points : 
     data.forEach(point => {
@@ -115,13 +144,23 @@ async function displayPointsOnMap(pathfile, options = null) {
         // dislay marker 
         let positions_of_marker = getPositionForTimeStamp(required_ts+time_modifier, data); 
 
-        console.log(1, positions_of_marker); 
-        console.log(2, markers); 
+        // console.log(1, positions_of_marker); 
+        // console.log(2, markers); 
 
         if (markers.length === 0) {
-            let tracker = new L.marker([positions_of_marker.lat,positions_of_marker.lon]); 
-            markers.push(tracker)
-            tracker.addTo(map).bindPopup(pathfile.split('/')[pathfile.split('/').length-1]).openPopup(); 
+            let customIcon = L.icon({
+                iconUrl: `markers/${color}.png`, 
+                iconSize: [25,41], 
+                iconAnchor: [12,41], 
+                popupAnchor: [0,-42], 
+                shadowUrl: 'markers/shadow.png', 
+                shadowSize: [25,10]
+            })
+            let tracker = new L.marker([positions_of_marker.lat,positions_of_marker.lon], {
+                icon: customIcon
+            }); 
+            markers.push(tracker); 
+            tracker.addTo(map).bindPopup(pathfile.split('/')[pathfile.split('/').length-1]); 
         } else {
             markers[0].setLatLng([positions_of_marker.lat,positions_of_marker.lon]); 
         }

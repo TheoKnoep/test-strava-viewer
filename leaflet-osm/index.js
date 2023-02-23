@@ -36,28 +36,50 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
  * PARSE XML CONTENT : 
  */
 
-let pathfile = '../CC_02_23_Paris_Melun_.gpx'; 
+let perso = '../CC_02_23_Paris_Melun_.gpx'; 
+const listOfColors = [
+    "red", "green", "blue"
+]; 
 
-displayPointsOnMap(pathfile);
-displayPointsOnMap('../_CC02.gpx', 'green'); 
+displayPointsOnMap(perso)
+.then(() => {
+    displayPointsOnMap('../CC02.tcx'); 
+})
 
-async function displayPointsOnMap(pathfile, color = 'red') {
-    let data = await parseGPX(pathfile);
-    // tracer les points : 
-    // data.forEach(point => {
-    //     L.marker([point.lat, point.lon]).addTo(map); 
-    // })
+
+
+async function displayPointsOnMap(pathfile) {
+    let data = []; 
+
+    let input = pathfile.split('.')[pathfile.split('.').length-1]; 
+
+    //select Color: 
+    let rand = Math.floor(Math.random()*listOfColors.length); 
+    color = listOfColors[rand]; 
+    listOfColors.splice(rand,1); 
+
+    console.log(color); 
+
+    // Get data
+    if (input === 'gpx') {
+        data = await parseGPX(pathfile);
+    } else if(input === 'tcx') {
+        data = await parseTCX(pathfile); 
+    }
+
+    // Paint points : 
     data.forEach(point => {
         L.circle([point.lat, point.lon], {
             color: color, 
             fillColor: color, 
-            fillOpacity: .5,
-            radius: 10, 
-            title: point.time
+            fillOpacity: .1,
+            radius: 4
         }).addTo(map); 
     }
     )
 }
+
+
 
 async function parseGPX(pathfile) {
     let parser = new DOMParser(); 
@@ -75,12 +97,30 @@ async function parseGPX(pathfile) {
                     lon: point.getAttribute('lon')
                 }); 
             }); 
-            // console.log(course_points); 
             return course_points; 
         }); 
 }
 
 
-async function parseTCX(pathtofile) {
 
+
+parseTCX('../CC02.tcx'); 
+
+async function parseTCX(path) {
+    let parser = new DOMParser(); 
+    let course_points = []; 
+    return fetch(path)
+        .then(res => res.text())
+        .then(text => {
+            xmlDoc = parser.parseFromString(text, "text/xml"); 
+            let collection = xmlDoc.querySelectorAll('Trackpoint'); 
+            collection.forEach(point => {
+                course_points.push({
+                    time: point.querySelector('Time').textContent, 
+                    lat: point.querySelector('Position LatitudeDegrees').textContent, 
+                    lon: point.querySelector('Position LongitudeDegrees').textContent
+                }); 
+            }); 
+            return course_points; 
+        }); 
 }

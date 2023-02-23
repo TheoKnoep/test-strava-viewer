@@ -26,11 +26,11 @@ Collection de points avec coodonnées lat / lon + timestamp :
 </trkpt>
 ```
 
+Par contre, apparemment, avec le fichier GPX natif de Strava, on n'a pas les timestamps horaires pour les activités des autres compte. 
 
+## TCX
 
-
-
-
+Format enrichi de Strava 
 
 Features : 
 

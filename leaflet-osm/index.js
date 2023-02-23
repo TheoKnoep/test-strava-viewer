@@ -1,3 +1,8 @@
+// config
+const listOfColors = [
+    "red", "green", "blue", "teal", "crimson", "darkblue", "darkmagenta", "olive", "rebeccapurple", "lightslategray"
+]; 
+
 // Initialiser l'affichage de la carte : 
 let mapOptions = {
     center: [data[0].lat,data[0].lon], 
@@ -34,16 +39,14 @@ let to_display = [
 
 
 let perso = '../CC_02_23_Paris_Melun_.tcx'; 
-const listOfColors = [
-    "red", "green", "blue", "teal", "crimson", "darkblue", "darkmagenta", "olive", "rebeccapurple", "lightslategray"
-]; 
+
 
 
 
 displayPointsOnMap(perso)
-.then(() => {
-    displayPointsOnMap('../premiere.tcx', { time_modifier: 1000*60*60}); 
-})
+    .then(() => { 
+        displayPointsOnMap('../CC02.tcx', { time_modifier: 1000*60*60})
+    });  
 
 
 
@@ -85,7 +88,6 @@ async function displayPointsOnMap(pathfile, options = null) {
 
 
     // SET MIN
-    console.log('slider min', document.querySelector('#time').getAttribute('min')); 
     if (document.querySelector('#time').getAttribute('min') === null) {
         document.querySelector('#time').setAttribute('min', ts_start); 
         document.querySelector('#display-time').textContent = new Date(ts_start*1).toLocaleTimeString(); 
@@ -113,6 +115,9 @@ async function displayPointsOnMap(pathfile, options = null) {
         // dislay marker 
         let positions_of_marker = getPositionForTimeStamp(required_ts+time_modifier, data); 
 
+        console.log(1, positions_of_marker); 
+        console.log(2, markers); 
+
         if (markers.length === 0) {
             let tracker = new L.marker([positions_of_marker.lat,positions_of_marker.lon]); 
             markers.push(tracker)
@@ -123,6 +128,12 @@ async function displayPointsOnMap(pathfile, options = null) {
     }); 
 }
 
+
+function moveSlider(ms) {
+    document.querySelector("#time").value = document.querySelector("#time").value*1 + ms;
+    let forceInput = new Event('input'); 
+    document.querySelector("#time").dispatchEvent(forceInput); 
+}
 
 
 async function parseGPX(pathfile) {

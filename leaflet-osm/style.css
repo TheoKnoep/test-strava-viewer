@@ -3,5 +3,15 @@
 }
 
 .map-container {
-    height: 100vh; 
+    height: 95vh; 
+}
+
+.slider-container {
+    height: 5vh;
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+}
+.slider-container #time {
+    width: 90%; 
 }

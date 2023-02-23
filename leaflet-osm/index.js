@@ -16,27 +16,24 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
 
 
-  // Créer un nouveau marker : 
-//   let marker1 = L.marker([48.8550843,2.3468002835410653]).addTo(map); 
-
-
-
-
-
-  
-
-  // Réagir aux événements sur la carte : 
-//   map.on("click", function(e) {
-//       new L.marker([e.latlng.lat, e.latlng.lng]).addTo(map); 
-//   }); 
-
-
 
 /* **********************************************************
  * PARSE XML CONTENT : 
  */
 
-let perso = '../CC_02_23_Paris_Melun_.gpx'; 
+let to_display = [
+    {
+        path: '../CC_02_23_Paris_Melun_.tcx', 
+        modifier: 0
+    }, 
+    {
+        path: '../premiere.tcx', 
+        modifier: 3600*1000
+    }
+]; 
+
+
+let perso = '../CC_02_23_Paris_Melun_.tcx'; 
 const listOfColors = [
     "red", "green", "blue", "teal", "crimson", "darkblue", "darkmagenta", "olive", "rebeccapurple", "lightslategray"
 ]; 
@@ -45,15 +42,18 @@ const listOfColors = [
 
 displayPointsOnMap(perso)
 .then(() => {
-    displayPointsOnMap('../premiere.tcx'); 
+    displayPointsOnMap('../premiere.tcx', { time_modifier: 1000*60*60}); 
 })
 
 
 
-async function displayPointsOnMap(pathfile) {
+async function displayPointsOnMap(pathfile, options = null) {
     let data = []; 
-
     let input = pathfile.split('.')[pathfile.split('.').length-1]; 
+
+
+    let time_modifier = 0; 
+    if (options && options.time_modifier) { time_modifier = options.time_modifier }
 
     //select Color: 
     let rand = Math.floor(Math.random()*listOfColors.length); 
@@ -80,8 +80,8 @@ async function displayPointsOnMap(pathfile) {
     }); 
 
     // Set time slider : 
-    let ts_start = new Date(data[0].time).getTime(); 
-    let ts_finish = new Date(data[data.length-1].time).getTime(); 
+    let ts_start = new Date(data[0].time).getTime() - time_modifier; 
+    let ts_finish = new Date(data[data.length-1].time).getTime() - time_modifier; 
 
 
     // SET MIN
@@ -103,6 +103,7 @@ async function displayPointsOnMap(pathfile) {
         document.querySelector('#time').setAttribute('max', max_ts); 
     }
 
+
     let markers = new Array(); 
 
     document.querySelector('#time').addEventListener('input', event => {
@@ -110,7 +111,7 @@ async function displayPointsOnMap(pathfile) {
         document.querySelector('#display-time').textContent = new Date(required_ts).toLocaleTimeString(); 
 
         // dislay marker 
-        let positions_of_marker = getPositionForTimeStamp(required_ts, data); 
+        let positions_of_marker = getPositionForTimeStamp(required_ts+time_modifier, data); 
 
         if (markers.length === 0) {
             let tracker = new L.marker([positions_of_marker.lat,positions_of_marker.lon]); 
@@ -127,6 +128,7 @@ async function displayPointsOnMap(pathfile) {
 async function parseGPX(pathfile) {
     let parser = new DOMParser(); 
     let course_points = []; 
+
     return fetch(pathfile)
         .then(res => res.text())
         .then(text => {

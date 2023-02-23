@@ -43,3 +43,14 @@ Features :
   - afficher chaque point et un segment entre chaque
 
 - ajouter un graphique / slider pour faire glisser une icone voyante pour faire correspondre un horaire à une position sur l'itinéraire 
+
+-----
+
+Problématique des dates : 
+
+le principal enjeu de comparaison entre 2 fichiers TCX est d'avoir des horaires cohérents malgré les différentes timezones 
+
+| Fichier                   | <Time> du fichier        | horaire réel | converti en |
+| ------------------------- | ------------------------ | ------------ | ----------- |
+| premiere.tcx              | 2023-02-18T08:32:58.000Z | 8h32         | 9h32 : +1h  |
+| CC_02_23_Paris_Melun_.tcx | 2023-02-18T07:22:32Z     | 8h22         | 8:22 : ok   |

@@ -1,0 +1,1 @@
+Test de conversion d'un fichier GPX en JSON avec https://mygeodata.cloud/

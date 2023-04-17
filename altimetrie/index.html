@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+<body>
+    Test de l'API IGN de calcul de l'élévation d'un point
+
+    <h1>Profil :</h1>
+    <div>
+        <canvas id="myChart"></canvas>
+      </div>
+    
+
+    <script>
+        let coordinates = [
+            [
+                2.44486,
+                48.833799
+            ],
+            [
+                2.445089,
+                48.833536
+            ],
+            [
+                2.444512,
+                48.830881
+            ],
+            [
+                2.444229,
+                48.829635
+            ],
+            [
+                2.443831,
+                48.827985
+            ],
+            [
+                2.443792,
+                48.827782
+            ],
+            [
+                2.44377,
+                48.827664
+            ],
+            [
+                2.443729,
+                48.827452
+            ],
+            [
+                2.443725,
+                48.827435
+            ],
+            [
+                2.443149,
+                48.824802
+            ],
+            [
+                2.442918,
+                48.823846
+            ],
+            [
+                2.442741,
+                48.823019
+            ],
+            [
+                2.44262,
+                48.822931
+            ],
+            [
+                2.442409,
+                48.822869
+            ],
+            [
+                2.442282,
+                48.822879
+            ],
+            [
+                2.442181,
+                48.822917
+            ],
+            [
+                2.442064,
+                48.823
+            ],
+            [
+                2.441375,
+                48.824896
+            ],
+            [
+                2.440798,
+                48.826515
+            ],
+            [
+                2.440781,
+                48.826565
+            ],
+            [
+                2.440753,
+                48.82665
+            ],
+            [
+                2.440308,
+                48.827869
+            ],
+            [
+                2.439228,
+                48.830884
+            ],
+            [
+                2.439073,
+                48.831319
+            ],
+            [
+                2.438824,
+                48.832035
+            ],
+            [
+                2.438728,
+                48.832296
+            ],
+            [
+                2.437928,
+                48.834471
+            ],
+            [
+                2.437893,
+                48.834569
+            ],
+            [
+                2.437891,
+                48.834651
+            ],
+            [
+                2.437963,
+                48.834721
+            ],
+            [
+                2.438062,
+                48.834753
+            ],
+            [
+                2.4382,
+                48.834751
+            ],
+            [
+                2.441766,
+                48.834314
+            ],
+            [
+                2.443427,
+                48.834114
+            ],
+            [
+                2.444226,
+                48.834012
+            ],
+            [
+                2.444649,
+                48.833941
+            ],
+            [
+                2.444809,
+                48.833833
+            ]
+        ]; 
+    
+        let profil = []; 
+        let promisses = []; 
+
+        coordinates.forEach((item, index) => {
+            console.log(index, ' // ', item[0], ' / ', item[1]); 
+            // getElevation(item[0], item[1], index).then(res => console.log(res)); 
+            promisses.push(getElevation(item[0], item[1], index)); 
+        }); 
+
+        Promise.all(promisses)
+            .then((res) => {
+                console.log(res); 
+                console.log(profil); 
+            }); 
+
+        async function getElevation(lon, lat, index) {
+            return fetch(`https://wxs.ign.fr/calcul/alti/rest/elevation.json?lon=${lon}&lat=${lat}&zonly=true`)
+                .then(res => res.json())
+                .then(data => {
+                    // return {index: index, elevation: data.elevations[0], count: i-1}; 
+                    profil[index] = data.elevations[0]; 
+                });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,165 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<gpx version="1.1" creator="https://www.komoot.de" xmlns="http://www.topografix.com/GPX/1/1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd">
+  <metadata>
+    <name>Tour du Poly</name>
+    <author>
+      <link href="https://www.komoot.de">
+        <text>komoot</text>
+        <type>text/html</type>
+      </link>
+    </author>
+  </metadata>
+  <trk>
+    <name>Tour du Poly</name>
+    <trkseg>
+      <trkpt lat="48.833799" lon="2.444860">
+        <ele>51.937729</ele>
+        <time>2023-04-17T10:30:46.336Z</time>
+      </trkpt>
+      <trkpt lat="48.833536" lon="2.445089">
+        <ele>51.937729</ele>
+        <time>2023-04-17T10:30:50.635Z</time>
+      </trkpt>
+      <trkpt lat="48.830881" lon="2.444512">
+        <ele>51.780825</ele>
+        <time>2023-04-17T10:31:28.032Z</time>
+      </trkpt>
+      <trkpt lat="48.829635" lon="2.444229">
+        <ele>52.676905</ele>
+        <time>2023-04-17T10:31:50.351Z</time>
+      </trkpt>
+      <trkpt lat="48.827985" lon="2.443831">
+        <ele>55.234141</ele>
+        <time>2023-04-17T10:32:26.812Z</time>
+      </trkpt>
+      <trkpt lat="48.827782" lon="2.443792">
+        <ele>55.577066</ele>
+        <time>2023-04-17T10:32:31.453Z</time>
+      </trkpt>
+      <trkpt lat="48.827664" lon="2.443770">
+        <ele>55.776311</ele>
+        <time>2023-04-17T10:32:34.123Z</time>
+      </trkpt>
+      <trkpt lat="48.827452" lon="2.443729">
+        <ele>56.084488</ele>
+        <time>2023-04-17T10:32:38.878Z</time>
+      </trkpt>
+      <trkpt lat="48.827435" lon="2.443725">
+        <ele>56.107864</ele>
+        <time>2023-04-17T10:32:39.249Z</time>
+      </trkpt>
+      <trkpt lat="48.824802" lon="2.443149">
+        <ele>59.371650</ele>
+        <time>2023-04-17T10:33:31.908Z</time>
+      </trkpt>
+      <trkpt lat="48.823846" lon="2.442918">
+        <ele>60.172462</ele>
+        <time>2023-04-17T10:33:49.272Z</time>
+      </trkpt>
+      <trkpt lat="48.823019" lon="2.442741">
+        <ele>60.266458</ele>
+        <time>2023-04-17T10:34:02.749Z</time>
+      </trkpt>
+      <trkpt lat="48.822931" lon="2.442620">
+        <ele>60.279817</ele>
+        <time>2023-04-17T10:34:04.587Z</time>
+      </trkpt>
+      <trkpt lat="48.822869" lon="2.442409">
+        <ele>60.296939</ele>
+        <time>2023-04-17T10:34:06.804Z</time>
+      </trkpt>
+      <trkpt lat="48.822879" lon="2.442282">
+        <ele>60.306417</ele>
+        <time>2023-04-17T10:34:08.006Z</time>
+      </trkpt>
+      <trkpt lat="48.822917" lon="2.442181">
+        <ele>60.315036</ele>
+        <time>2023-04-17T10:34:09.162Z</time>
+      </trkpt>
+      <trkpt lat="48.823000" lon="2.442064">
+        <ele>60.327781</ele>
+        <time>2023-04-17T10:34:10.818Z</time>
+      </trkpt>
+      <trkpt lat="48.824896" lon="2.441375">
+        <ele>59.151104</ele>
+        <time>2023-04-17T10:34:35.656Z</time>
+      </trkpt>
+      <trkpt lat="48.826515" lon="2.440798">
+        <ele>57.712053</ele>
+        <time>2023-04-17T10:34:56.184Z</time>
+      </trkpt>
+      <trkpt lat="48.826565" lon="2.440781">
+        <ele>57.667369</ele>
+        <time>2023-04-17T10:34:56.837Z</time>
+      </trkpt>
+      <trkpt lat="48.826650" lon="2.440753">
+        <ele>57.591519</ele>
+        <time>2023-04-17T10:34:57.972Z</time>
+      </trkpt>
+      <trkpt lat="48.827869" lon="2.440308">
+        <ele>56.337992</ele>
+        <time>2023-04-17T10:35:13.725Z</time>
+      </trkpt>
+      <trkpt lat="48.830884" lon="2.439228">
+        <ele>52.695878</ele>
+        <time>2023-04-17T10:35:50.329Z</time>
+      </trkpt>
+      <trkpt lat="48.831319" lon="2.439073">
+        <ele>52.193970</ele>
+        <time>2023-04-17T10:35:55.627Z</time>
+      </trkpt>
+      <trkpt lat="48.832035" lon="2.438824">
+        <ele>51.398681</ele>
+        <time>2023-04-17T10:36:04.556Z</time>
+      </trkpt>
+      <trkpt lat="48.832296" lon="2.438728">
+        <ele>51.200534</ele>
+        <time>2023-04-17T10:36:07.913Z</time>
+      </trkpt>
+      <trkpt lat="48.834471" lon="2.437928">
+        <ele>49.734130</ele>
+        <time>2023-04-17T10:36:36.823Z</time>
+      </trkpt>
+      <trkpt lat="48.834569" lon="2.437893">
+        <ele>49.683547</ele>
+        <time>2023-04-17T10:36:38.130Z</time>
+      </trkpt>
+      <trkpt lat="48.834651" lon="2.437891">
+        <ele>49.642340</ele>
+        <time>2023-04-17T10:36:39.207Z</time>
+      </trkpt>
+      <trkpt lat="48.834721" lon="2.437963">
+        <ele>49.599865</ele>
+        <time>2023-04-17T10:36:40.278Z</time>
+      </trkpt>
+      <trkpt lat="48.834753" lon="2.438062">
+        <ele>49.563388</ele>
+        <time>2023-04-17T10:36:41.201Z</time>
+      </trkpt>
+      <trkpt lat="48.834751" lon="2.438200">
+        <ele>49.517735</ele>
+        <time>2023-04-17T10:36:42.350Z</time>
+      </trkpt>
+      <trkpt lat="48.834314" lon="2.441766">
+        <ele>49.177640</ele>
+        <time>2023-04-17T10:37:16.003Z</time>
+      </trkpt>
+      <trkpt lat="48.834114" lon="2.443427">
+        <ele>49.177640</ele>
+        <time>2023-04-17T10:37:37.236Z</time>
+      </trkpt>
+      <trkpt lat="48.834012" lon="2.444226">
+        <ele>49.177640</ele>
+        <time>2023-04-17T10:37:47.942Z</time>
+      </trkpt>
+      <trkpt lat="48.833941" lon="2.444649">
+        <ele>49.177640</ele>
+        <time>2023-04-17T10:37:53.528Z</time>
+      </trkpt>
+      <trkpt lat="48.833833" lon="2.444809">
+        <ele>49.177640</ele>
+        <time>2023-04-17T10:37:56.482Z</time>
+      </trkpt>
+    </trkseg>
+  </trk>
+</gpx>

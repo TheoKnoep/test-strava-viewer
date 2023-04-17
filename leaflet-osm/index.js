@@ -1,28 +1,38 @@
 let to_display = [
     {
-        path: '../aigoual-nat.tcx', 
+        path: '../tracks/aigoual-nat.tcx', 
         modifier: 3600*1000*2, 
         display: false
     }, 
     {
-        path: '../sens-to.tcx', 
+        path: '../tracks/sens-to.tcx', 
         modifier: 0, 
         display: false
     }, 
     {
-        path: '../sens-arielle.tcx', 
+        path: '../tracks/sens-arielle.tcx', 
         modifier: 3600*1000*2, 
         display: false
     }, 
     {
-        path: '../vosges-to.tcx', 
+        path: '../tracks/vosges-to.tcx', 
         modifier: 0, 
         display: false
     }, 
     {
-        path: '../vosges-tibo.tcx', 
+        path: '../tracks/vosges-tibo.tcx', 
         modifier: 3600000*2, 
         display: false
+    }, 
+    {
+        path: "../tracks/Sortie_poly_d'hiver.tcx", 
+        modifier: 0, 
+        display: true
+    }, 
+    {
+        path: "../tracks/poly-ar.tcx", 
+        modifier: 3600000, 
+        display: true
     }
 ]; 
 
@@ -214,7 +224,6 @@ function displayMarker(lat, lon) {
 }
 
 
-parseTCX('../CC02.tcx'); 
 
 async function parseTCX(path) {
     let parser = new DOMParser(); 

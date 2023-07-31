@@ -27,11 +27,41 @@ let to_display = [
     {
         path: "../tracks/Sortie_poly_d'hiver.tcx", 
         modifier: 0, 
-        display: true
+        display: false
     }, 
     {
         path: "../tracks/poly-ar.tcx", 
         modifier: 3600000, 
+        display: false
+    }, 
+    {
+        path:'../tracks/2023-04-17_to.tcx', 
+        modifier: 0, 
+        display: false
+    }, 
+    {
+        path:'../tracks/2023-04-17_saoud.tcx', 
+        modifier: 7200000, 
+        display: false
+    },
+    {
+        path:'../tracks/2023-05-01_adrien.tcx', 
+        modifier: 7200000, 
+        display: false
+    }, 
+    {
+        path:'../tracks/2023-05-01_to.tcx', 
+        modifier: 0, 
+        display: false
+    }, 
+    {
+        path:'../tracks/Sortie_vélo_le_matin_C.tcx', 
+        modifier: 0, 
+        display: true
+    }, 
+    {
+        path:'../tracks/Sortie_vélo_le_matin_M.tcx', 
+        modifier: 0, 
         display: true
     }
 ]; 

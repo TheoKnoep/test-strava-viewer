@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+
+
+    <p>Choose file (.tcx)</p>
+    <input type="file" aria-label="Choisir le fichier" id="file-picker">
+    
+
+    <div id="output"></div>
+
+
+
+    
+    
+    
+<script>
+
+
+const $file = document.querySelector('#file-picker'); 
+
+$file.addEventListener('change', event => {
+    let reader = new FileReader(); 
+    reader.readAsText(event.target.files[0]); 
+    reader.onerror = (err) => {
+        console.log(err); 
+    }
+    reader.onload = (event) => {
+        let json_of_points = parseTrackFile(reader.result); 
+        let csv = exportJSONtoCSV(json_of_points); 
+        downloadCSV(csv, 'csv'); 
+    }
+}) 
+
+
+let json_mockup = [
+    {
+        "time": 1, 
+        "position": "49.121661684,2.65946863", 
+        "heartrate": "126", 
+        "watts": "68"
+    }, 
+    {
+        "time": 2, 
+        "position": "49.121661684,2.65946863", 
+        "heartrate": "128", 
+        "watts": "122"
+    }, 
+    {
+        "time": 3, 
+        "position": "49.121661684,2.65946863", 
+        "heartrate": "129", 
+        "watts": "0", 
+        "variant": true
+    }
+]; 
+
+exportJSONtoCSV(json_mockup); 
+
+
+// convert one-level JSON to CSV string : 
+function exportJSONtoCSV(json) {
+    let cumulated_keys = []; 
+    json.forEach(item => {
+        Object.keys(item).forEach(key => {
+            if (cumulated_keys.indexOf(key) < 0) {
+                cumulated_keys.push(key); 
+            }
+        })
+    })
+    let csv_head = cumulated_keys.join(';') + '\n'; 
+    const form_raw = (object) => {
+        let elts = []; 
+        cumulated_keys.forEach(key => {
+            elts.push(object[key] || ''); 
+        }); 
+        // console.log(elts.join(';')); 
+        return elts.join(';') + '\n'; 
+    }; 
+    csv_body = ''; 
+    json.forEach(item => {
+        csv_body += form_raw(item); 
+    }); 
+
+    // console.log( csv_head + csv_body); 
+    return csv_head + csv_body; 
+}
+
+
+// Fonction pour créer et télécharger le fichier CSV
+function downloadCSV(csvContent, fileName) {
+    const blob = new Blob([csvContent], { type: 'text/csv' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = fileName;
+    link.click();
+    URL.revokeObjectURL(url);
+}
+
+
+
+function parseTrackFile(text) {
+    let parser = new DOMParser(); 
+    let course_points = [{
+        "time": "timestamp of the point", 
+        "coord": "long,lat",
+        "heartrate": "fréquence cardiaque", 
+        "watts": "Puissance développée"
+    }]; 
+    xmlDoc = parser.parseFromString(text, "text/xml");  
+    let collection = xmlDoc.querySelectorAll('Trackpoint'); 
+    console.log(collection[0]); 
+
+    collection.forEach(point => {
+        // console.log(point); 
+        if (!point.querySelector('Time')) { throw new Error("Pas d'information d'horaire pour cet itinéraire")}; 
+        course_points.push({
+            "time": new Date(point.querySelector('Time').textContent).getTime()/1000, 
+            "coord": '-', 
+            "heartrate": point.querySelector("HeartRateBpm Value").textContent, 
+            "watts": point.querySelector("Extensions").textContent
+        }); 
+    }); 
+    console.log(course_points[0]); 
+    console.log(course_points[1]); 
+    console.log(course_points[2]); 
+    return course_points; 
+
+}
+    </script>
+</body>
+</html>
+
+
+
+

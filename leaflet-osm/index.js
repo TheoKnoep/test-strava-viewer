@@ -62,8 +62,15 @@ let to_display = [
     {
         path:'../tracks/Sortie_vélo_le_matin_M.tcx', 
         modifier: 0, 
+        display: false
+    },
+    {
+        path:'../tracks/Morning_Ride_PSC_-_profiter_des_globules_rouges.tcx', 
+        modifier: 7200000, 
         display: true
     }
+
+    
 ]; 
 
 
@@ -98,17 +105,21 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
 
 
+// Execute display of trac k : 
+to_display.forEach((item, index) => {
+    if (item.display) {
+        displayPointsOnMap(item.path, { color: listOfColors[index], time_modifier: item.modifier}); 
+    }
+})
+
+
 
 /* **********************************************************
  * PARSE XML CONTENT : 
  */
 
 
-to_display.forEach((item, index) => {
-    if (item.display) {
-        displayPointsOnMap(item.path, { color: listOfColors[index], time_modifier: item.modifier}); 
-    }
-})
+
 
 
 // displayPointsOnMap('../CC_02_23_Paris_Melun_.tcx')
@@ -129,6 +140,7 @@ async function displayPointsOnMap(pathfile, options = null) {
     //select Color: 
     let color = listOfColors[0]; 
     if (options && options.color) { color = options.color }
+    listOfColors.splice(0,1); 
 
     console.log(color); 
 
@@ -142,14 +154,23 @@ async function displayPointsOnMap(pathfile, options = null) {
     map.panTo([data[0].lat, data[0].lon]); 
 
     // Paint points : 
-    data.forEach(point => {
-        L.circle([point.lat, point.lon], {
-            color: color, 
-            fillColor: color, 
-            fillOpacity: .1,
-            radius: 4
-        }).addTo(map); 
-    }); 
+    // data.forEach(point => {
+    //     L.circle([point.lat, point.lon], {
+    //         color: color, 
+    //         fillColor: color, 
+    //         fillOpacity: .1,
+    //         radius: 4
+    //     }).addTo(map); 
+    // }); 
+
+    // paint line :
+    let latlngs = []; 
+    data.forEach(coord => {
+        latlngs.push([coord.lat, coord.lon]); 
+    })
+    let polyline = L.polyline(latlngs, { color: color }); 
+    polyline.addTo(map); 
+
 
     // Set time slider : 
     let ts_start = new Date(data[0].time).getTime() - time_modifier; 

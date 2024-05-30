@@ -57,7 +57,7 @@ let to_display = [
     {
         path:'../tracks/Sortie_vélo_le_matin_C.tcx', 
         modifier: 0, 
-        display: true
+        display: false
     }, 
     {
         path:'../tracks/Sortie_vélo_le_matin_M.tcx', 
@@ -67,8 +67,18 @@ let to_display = [
     {
         path:'../tracks/Morning_Ride_PSC_-_profiter_des_globules_rouges.tcx', 
         modifier: 7200000, 
+        display: false
+    }, 
+    {
+        path:'../tracks/2024.05.20_Morning_Ride_j.tcx', 
+        modifier: 7200000, 
         display: true
-    }
+    }, 
+    {
+        path:'../tracks/2024.05.20_Morning_Ride_a.tcx', 
+        modifier: 7200000, 
+        display: true
+    }, 
 
     
 ]; 

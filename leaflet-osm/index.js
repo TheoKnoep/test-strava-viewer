@@ -72,13 +72,25 @@ let to_display = [
     {
         path:'../tracks/2024.05.20_Morning_Ride_j.tcx', 
         modifier: 7200000, 
-        display: true
+        display: false
     }, 
     {
         path:'../tracks/2024.05.20_Morning_Ride_a.tcx', 
         modifier: 7200000, 
+        display: false
+    }, 
+    {
+        path:'../tracks/2024.09.04_arielle_Sortie_vélo_en_soirée.tcx', 
+        modifier: 7200000, 
         display: true
     }, 
+    {
+        path:'../tracks/2024.09.04_Polybloc.tcx', 
+        modifier: 0, 
+        display: true
+    }, 
+
+    
 
     
 ]; 

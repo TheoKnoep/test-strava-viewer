@@ -89,6 +89,11 @@ let to_display = [
         modifier: 0, 
         display: true
     }, 
+    {
+        path:'../tracks/2024.09.04_cyril_Poly.tcx', 
+        modifier: 7200000, 
+        display: true
+    },
 
     
 

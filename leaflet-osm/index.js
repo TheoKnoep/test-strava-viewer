@@ -82,22 +82,30 @@ let to_display = [
     {
         path:'../tracks/2024.09.04_arielle_Sortie_vélo_en_soirée.tcx', 
         modifier: 7200000, 
-        display: true
+        display: false
     }, 
     {
         path:'../tracks/2024.09.04_Polybloc.tcx', 
         modifier: 0, 
-        display: true
+        display: false
     }, 
     {
         path:'../tracks/2024.09.04_cyril_Poly.tcx', 
         modifier: 7200000, 
+        display: false
+    },
+    {
+        path:'../tracks/Poly_rattrapage.tcx', 
+        modifier: 0, 
+        display: true
+    },
+    {
+        path:'../tracks/SM_Sortie_vélo_en_soirée.tcx', 
+        modifier: 7200000, 
         display: true
     },
 
-    
 
-    
 ]; 
 
 

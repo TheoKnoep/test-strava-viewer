@@ -97,18 +97,33 @@ let to_display = [
     {
         path:'../tracks/Poly_rattrapage.tcx', 
         modifier: 0, 
-        display: true
+        display: false
     },
     {
         path:'../tracks/SM_Sortie_vélo_en_soirée.tcx', 
         modifier: 7200000, 
-        display: true
+        display: false
     },
-
-
+    {
+        path:'../tracks/2024.10.23.Poly_nocturne.tcx', 
+        modifier: 7200000, 
+        display: false
+    },
+    {
+        path:'../tracks/2024.10.23.Poly_ça_commence_à_faire_nuit.tcx', 
+        modifier: 0, 
+        display: false, 
+    },
 ]; 
 
 
+
+let testTimeModifier = {
+    path:'../tracks/2024.10.23.Poly_ça_commence_à_faire_nuit.tcx', 
+    modifier: 'unkown', 
+    display: false, 
+    startTime: "2024-10-23 18:15:00"
+}
 
 
 // config
@@ -140,7 +155,7 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
 
 
-// Execute display of trac k : 
+// Execute display of track : 
 to_display.forEach((item, index) => {
     if (item.display) {
         displayPointsOnMap(item.path, { color: listOfColors[index], time_modifier: item.modifier}); 
@@ -156,17 +171,12 @@ to_display.forEach((item, index) => {
 
 
 
-
-// displayPointsOnMap('../CC_02_23_Paris_Melun_.tcx')
-//     .then(() => { 
-//         // displayPointsOnMap('../CC02.tcx', { time_modifier: 1000*60*60, color: listOfColors[1]})
-//     });  
-
-
-
 async function displayPointsOnMap(pathfile, options = null) {
     let data = []; 
     let input = pathfile.split('.')[pathfile.split('.').length-1]; 
+
+
+    
 
 
     let time_modifier = 0; 
@@ -177,7 +187,7 @@ async function displayPointsOnMap(pathfile, options = null) {
     if (options && options.color) { color = options.color }
     listOfColors.splice(0,1); 
 
-    console.log(color); 
+
 
     // Get data
     if (input === 'gpx') {
@@ -186,17 +196,12 @@ async function displayPointsOnMap(pathfile, options = null) {
         data = await parseTCX(pathfile); 
     }
 
+    // set map initial view :
     map.panTo([data[0].lat, data[0].lon]); 
 
-    // Paint points : 
-    // data.forEach(point => {
-    //     L.circle([point.lat, point.lon], {
-    //         color: color, 
-    //         fillColor: color, 
-    //         fillOpacity: .1,
-    //         radius: 4
-    //     }).addTo(map); 
-    // }); 
+
+    //handle marker group : 
+
 
     // paint line :
     let latlngs = []; 
@@ -272,24 +277,28 @@ function moveSlider(ms) {
 
 
 async function parseGPX(pathfile) {
-    let parser = new DOMParser(); 
-    let course_points = []; 
-
     return fetch(pathfile)
         .then(res => res.text())
         .then(text => {
-            xmlDoc = parser.parseFromString(text, "text/xml"); 
-            let collection = xmlDoc.querySelectorAll('trkpt'); 
-            collection.forEach(point => {
-                if (!point.querySelector('time')) { throw new Error("Pas d'information d'horaire pour cet itinéraire")}; 
-                course_points.push({
-                    time: point.querySelector('time').textContent, 
-                    lat: point.getAttribute('lat'), 
-                    lon: point.getAttribute('lon')
-                }); 
-            }); 
-            return course_points; 
+           return convertGPXstringToJs(text); 
         }); 
+}
+
+
+function convertGPXstringToJs(GPXstring) {
+    let parser = new DOMParser(); 
+    let course_points = []; 
+    xmlDoc = parser.parseFromString(GPXstring, "text/xml");
+    let collection = xmlDoc.querySelectorAll('trkpt');
+    collection.forEach(point => {
+        if (!point.querySelector('time')) { throw new Error("Pas d'information d'horaire pour cet itinéraire") };
+        course_points.push({
+            time: point.querySelector('time').textContent,
+            lat: point.getAttribute('lat'),
+            lon: point.getAttribute('lon')
+        });
+    });
+    return course_points;
 }
 
 
@@ -328,4 +337,15 @@ async function parseTCX(path) {
             }); 
             return course_points; 
         }); 
+}
+
+
+
+
+
+
+function applyTimeModifier(obj, inputHour) {
+    // ...TO DO : à partir d'une heure entrée manuellement, 
+    // calculer auto le modifier à appliquer aux timestamps 
+    // de la liste de points pour l'affichage
 }
